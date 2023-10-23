@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CourseOfferingRepository.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">backend</a> &gt; <a href="index.source.html" class="el_package">com.geektrust.backend.repositories</a> &gt; <span class="el_source">CourseOfferingRepository.java</span></div><h1>CourseOfferingRepository.java</h1><pre class="source lang-java linenums">package com.geektrust.backend.repositories;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import com.geektrust.backend.entities.Course;
+
+public class CourseOfferingRepository {
+    
+    private Map&lt;String, Course&gt; courseOfferingMap;
+    
+<span class="nc" id="L12">    public CourseOfferingRepository() {</span>
+<span class="nc" id="L13">        courseOfferingMap = new HashMap&lt;String, Course&gt;();</span>
+<span class="nc" id="L14">    }</span>
+
+    public String saveCourseOffering(String courseName,
+                    String instructorName, String date,
+                    int minEmp, int maxEmp) {
+        
+<span class="nc" id="L20">        String courseOfferingId = &quot;&quot;;</span>
+
+<span class="nc" id="L22">        Course newCourse = new Course(courseName, instructorName,</span>
+                                    date, minEmp, maxEmp, false);
+     
+<span class="nc" id="L25">        courseOfferingMap.put(courseName, newCourse);</span>
+
+<span class="nc" id="L27">        courseOfferingId = &quot;OFFERING-&quot; + courseName + &quot;-&quot; + instructorName;</span>
+        
+<span class="nc" id="L29">        return courseOfferingId;</span>
+    }
+
+    public boolean isCourseAlreadyAvailable(String courseName) {
+        
+<span class="nc" id="L34">        return courseOfferingMap.containsKey(courseName);</span>
+
+    } 
+    
+    public int getMaxEmployees(String courseName) {
+
+<span class="nc" id="L40">        return courseOfferingMap.get(courseName).getMaxEmployees();</span>
+    }
+
+    public int getMinEmployees(String courseName) {
+
+<span class="nc" id="L45">        return courseOfferingMap.get(courseName).getMinEmployees();</span>
+    }
+
+    public Course getCourse(String courseName) {
+<span class="nc" id="L49">        return courseOfferingMap.get(courseName);</span>
+    }
+    
+    public void setCourseStatus(String courseName, boolean status) {
+
+<span class="nc" id="L54">        Course updatedCourse = courseOfferingMap.get(courseName);</span>
+
+<span class="nc" id="L56">        updatedCourse.setStatus(status);</span>
+
+<span class="nc" id="L58">        courseOfferingMap.put(courseName, updatedCourse);</span>
+<span class="nc" id="L59">    }</span>
+
+    
+ 
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

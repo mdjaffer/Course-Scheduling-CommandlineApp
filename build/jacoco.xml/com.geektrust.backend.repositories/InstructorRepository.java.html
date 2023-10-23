@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>InstructorRepository.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">backend</a> &gt; <a href="index.source.html" class="el_package">com.geektrust.backend.repositories</a> &gt; <span class="el_source">InstructorRepository.java</span></div><h1>InstructorRepository.java</h1><pre class="source lang-java linenums">package com.geektrust.backend.repositories;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.geektrust.backend.entities.Instructor;
+
+public class InstructorRepository {
+    
+    private Map&lt;String, Instructor&gt; courseInstructorMap;
+
+<span class="nc" id="L14">    public InstructorRepository() {</span>
+<span class="nc" id="L15">        courseInstructorMap = new HashMap&lt;String, Instructor&gt;();</span>
+<span class="nc" id="L16">    }</span>
+
+    public void saveInstructorDetails(String instructorName,String courseName) {
+        
+<span class="nc" id="L20">        Instructor newInstructor = new Instructor(instructorName);</span>
+
+<span class="nc" id="L22">        courseInstructorMap.put(courseName, newInstructor);</span>
+        
+<span class="nc" id="L24">    }</span>
+
+    public boolean isInstructorAvailable(String instructorName) {
+        
+<span class="nc" id="L28">        List&lt;Instructor&gt; instructorList </span>
+<span class="nc" id="L29">                            = new ArrayList&lt;Instructor&gt;(courseInstructorMap.values());</span>
+
+<span class="nc bnc" id="L31" title="All 2 branches missed.">        for (Instructor instructor : instructorList) {</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">            if (instructor.getName().equals(instructorName))</span>
+<span class="nc" id="L33">                return true;</span>
+<span class="nc" id="L34">        }                </span>
+
+<span class="nc" id="L36">        return false;</span>
+    }
+
+    public Instructor getInstructor(String courseName) {
+<span class="nc" id="L40">        return courseInstructorMap.get(courseName);</span>
+    }
+
+    public void deleteInstructor(String courseName) {
+<span class="nc" id="L44">        courseInstructorMap.remove(courseName);</span>
+<span class="nc" id="L45">    }</span>
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

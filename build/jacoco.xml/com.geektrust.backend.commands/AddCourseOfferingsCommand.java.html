@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AddCourseOfferingsCommand.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">backend</a> &gt; <a href="index.source.html" class="el_package">com.geektrust.backend.commands</a> &gt; <span class="el_source">AddCourseOfferingsCommand.java</span></div><h1>AddCourseOfferingsCommand.java</h1><pre class="source lang-java linenums">package com.geektrust.backend.commands;
+
+import java.util.List;
+import com.geektrust.backend.exceptions.DuplicateCourseException;
+import com.geektrust.backend.exceptions.IncorrectEmployeeNumbers;
+import com.geektrust.backend.exceptions.InputDataErrorException;
+import com.geektrust.backend.exceptions.InstructorAlreadyAssignedException;
+import com.geektrust.backend.exceptions.InvalidDateException;
+import com.geektrust.backend.exceptions.WhiteSpacesInFieldsException;
+import com.geektrust.backend.services.ICourseOfferingService;
+
+public class AddCourseOfferingsCommand implements ICommand {
+    
+    private ICourseOfferingService courseOfferingService;
+
+<span class="fc" id="L16">    public AddCourseOfferingsCommand(ICourseOfferingService courseOfferingService) {</span>
+<span class="fc" id="L17">        this.courseOfferingService = courseOfferingService;</span>
+<span class="fc" id="L18">    }</span>
+
+    @Override
+    public void execute(List&lt;String&gt; arguments) {
+<span class="fc" id="L22">        int expectedArguements = 6;</span>
+        try {
+<span class="fc bfc" id="L24" title="All 2 branches covered.">                if(arguments.size() &gt; expectedArguements)</span>
+<span class="fc" id="L25">                    throw new WhiteSpacesInFieldsException(&quot;Remove whitespaces from input fields&quot;);</span>
+
+<span class="pc bpc" id="L27" title="1 of 2 branches missed.">                if(arguments.size() &lt; expectedArguements)</span>
+<span class="fc" id="L28">                    throw new InputDataErrorException(&quot;Input Data Error&quot;);</span>
+                
+<span class="fc" id="L30">        } catch (WhiteSpacesInFieldsException wfe) {</span>
+<span class="fc" id="L31">            System.out.println(&quot;REMOVE WHITE SPACES FROM INPUT FIELDS&quot;);</span>
+<span class="fc" id="L32">            return;</span>
+<span class="fc" id="L33">        } catch (InputDataErrorException ide) {</span>
+<span class="fc" id="L34">            System.out.println(&quot;INPUT_DATA_ERROR&quot;);</span>
+<span class="fc" id="L35">            return;</span>
+<span class="nc" id="L36">        }</span>
+
+<span class="nc" id="L38">        String courseId = &quot;&quot;;</span>
+<span class="nc" id="L39">        String courseName = arguments.get(1);</span>
+<span class="nc" id="L40">        String instructorName = arguments.get(2);</span>
+<span class="nc" id="L41">        String date = arguments.get(3);</span>
+<span class="nc" id="L42">        int minEmp = Integer.parseInt(arguments.get(4));</span>
+<span class="nc" id="L43">        int maxEmp = Integer.parseInt(arguments.get(5));</span>
+
+        try {
+<span class="nc" id="L46">                courseId = courseOfferingService</span>
+<span class="nc" id="L47">                            .addCourseOffering(courseName, instructorName, date, minEmp, maxEmp);</span>
+<span class="nc" id="L48">        } catch (IncorrectEmployeeNumbers iemp) {</span>
+<span class="nc" id="L49">            System.out.println(&quot;PROVIDE VALID MINIMUM AND MAXIMUM EMPLOYEES&quot;);</span>
+<span class="nc" id="L50">        } catch (DuplicateCourseException dpc) {</span>
+<span class="nc" id="L51">            System.out.println(&quot;COURSE ALREADY AVAILABLE&quot;);</span>
+<span class="nc" id="L52">        } catch (InstructorAlreadyAssignedException iaa) {</span>
+<span class="nc" id="L53">            System.out.println(&quot;INSTRUCTOR ALREADY ASSIGNED TO OTHER COURSE&quot;);</span>
+<span class="nc" id="L54">        } catch (InvalidDateException invd) {</span>
+<span class="nc" id="L55">            System.out.println(&quot;INVALID DATE - PROVIDE TODAY's DATE OR FUTURE DATE&quot;);</span>
+<span class="nc" id="L56">        }</span>
+        
+<span class="nc" id="L58">        System.out.println(courseId);</span>
+<span class="nc" id="L59">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

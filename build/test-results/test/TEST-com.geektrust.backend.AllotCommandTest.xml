@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="CancelRegistrationCommandTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-10-23T07:16:31" hostname="LAPTOP-FQAD0GH9" time="0.034">
+  <properties/>
+  <testcase name="Allot command remove white spaces error" classname="com.geektrust.backend.AllotCommandTest" time="0.03"/>
+  <testcase name="Allot command input data error" classname="com.geektrust.backend.AllotCommandTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

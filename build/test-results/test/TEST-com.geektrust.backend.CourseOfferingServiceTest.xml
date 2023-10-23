@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.geektrust.backend.CourseOfferingServiceTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2023-10-23T07:16:31" hostname="LAPTOP-FQAD0GH9" time="0.063">
+  <properties/>
+  <testcase name="Test Instructor already assigned exception" classname="com.geektrust.backend.CourseOfferingServiceTest" time="0.03"/>
+  <testcase name="Test Dupicate course exception" classname="com.geektrust.backend.CourseOfferingServiceTest" time="0.003"/>
+  <testcase name="Test Adding new course offering" classname="com.geektrust.backend.CourseOfferingServiceTest" time="0.013"/>
+  <testcase name="Test Invalid date exception" classname="com.geektrust.backend.CourseOfferingServiceTest" time="0.003"/>
+  <testcase name="Test Invalid maximum employees" classname="com.geektrust.backend.CourseOfferingServiceTest" time="0.007"/>
+  <testcase name="Test Invalid minimum employees" classname="com.geektrust.backend.CourseOfferingServiceTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

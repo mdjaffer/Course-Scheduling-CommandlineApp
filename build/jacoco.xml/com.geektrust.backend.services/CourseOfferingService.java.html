@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CourseOfferingService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">backend</a> &gt; <a href="index.source.html" class="el_package">com.geektrust.backend.services</a> &gt; <span class="el_source">CourseOfferingService.java</span></div><h1>CourseOfferingService.java</h1><pre class="source lang-java linenums">package com.geektrust.backend.services;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import com.geektrust.backend.exceptions.DuplicateCourseException;
+import com.geektrust.backend.exceptions.IncorrectEmployeeNumbers;
+import com.geektrust.backend.exceptions.InstructorAlreadyAssignedException;
+import com.geektrust.backend.exceptions.InvalidDateException;
+import com.geektrust.backend.repositories.CourseOfferingRepository;
+import com.geektrust.backend.repositories.InstructorRepository;
+
+public class CourseOfferingService implements ICourseOfferingService {
+
+    private CourseOfferingRepository courseOfferingRepository;
+    private InstructorRepository instructorRepository;
+
+    public CourseOfferingService(CourseOfferingRepository courseOfferingRepository,
+<span class="fc" id="L18">            InstructorRepository instructorRepository) {</span>
+<span class="fc" id="L19">        this.courseOfferingRepository = courseOfferingRepository;</span>
+<span class="fc" id="L20">        this.instructorRepository = instructorRepository;</span>
+<span class="fc" id="L21">    }</span>
+
+    /* This function generates course offering ID and save in repository */
+    @Override
+    public String addCourseOffering(String courseName, String instructorName,
+                    String date, int minEmp, int maxEmp)
+            throws DuplicateCourseException, InstructorAlreadyAssignedException,
+                IncorrectEmployeeNumbers, InvalidDateException {
+
+<span class="fc" id="L30">        String courseId = &quot;&quot;;</span>
+        LocalDate localDate;
+        /* Check if course offering is already available */
+<span class="fc bfc" id="L33" title="All 2 branches covered.">        if (courseOfferingRepository.isCourseAlreadyAvailable(courseName)) {</span>
+<span class="fc" id="L34">            throw new DuplicateCourseException(&quot;Course : &quot; + courseName + &quot; already available !&quot;);</span>
+        }
+        /* Check if instructor is already assigned */
+<span class="fc bfc" id="L37" title="All 2 branches covered.">        if (instructorRepository.isInstructorAvailable(instructorName)) {</span>
+<span class="fc" id="L38">            throw new InstructorAlreadyAssignedException(&quot;Instructor Name : &quot; + instructorName + &quot; already assigned !&quot;);</span>
+        }
+        /* Check valid number of employees */
+<span class="pc bpc" id="L41" title="1 of 6 branches missed.">        if ((minEmp &lt; 0 || maxEmp &lt; 0) || (minEmp &gt; maxEmp)) {</span>
+<span class="fc" id="L42">            throw new IncorrectEmployeeNumbers(&quot;Provide valid miniumum and maximum employees&quot;);</span>
+        }
+
+<span class="fc" id="L45">        DateTimeFormatter format = DateTimeFormatter.ofPattern(&quot;ddMMyyyy&quot;);</span>
+        /* Check if date passed as input is valid */
+        try {
+<span class="fc" id="L48">            localDate = LocalDate.parse(date, format);</span>
+<span class="fc" id="L49">        } catch (Exception e) {</span>
+<span class="fc" id="L50">            throw new InvalidDateException(&quot;Provide valid date&quot;);</span>
+<span class="fc" id="L51">        }</span>
+
+        /* if (localDate.isBefore(LocalDate.now())) {
+            throw new InvalidDateException(&quot;Please provide today's date or future date !&quot;);
+        }
+        */
+        /* Save course details in repository */
+<span class="fc" id="L58">        courseId = courseOfferingRepository</span>
+<span class="fc" id="L59">                        .saveCourseOffering(courseName, instructorName, date, minEmp, maxEmp);</span>
+        /* Save instructor and course maping */
+<span class="fc" id="L61">        instructorRepository.saveInstructorDetails(instructorName, courseName);</span>
+
+        /*System.out.println(&quot;CourseId : &quot; + courseId 
+                    + &quot; MinEmp : &quot; + courseOfferingRepository.getMinEmployees(courseName) 
+                    + &quot; MaxEmp : &quot; + courseOfferingRepository.getMaxEmployees(courseName));
+        */
+        
+<span class="fc" id="L68">        return courseId;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

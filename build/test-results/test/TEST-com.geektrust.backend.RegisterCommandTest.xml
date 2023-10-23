@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="RegistrationCommandTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-10-23T07:16:31" hostname="LAPTOP-FQAD0GH9" time="0.007">
+  <properties/>
+  <testcase name="Register command input data error" classname="com.geektrust.backend.RegisterCommandTest" time="0.002"/>
+  <testcase name="Register c ommand remove white spaces error" classname="com.geektrust.backend.RegisterCommandTest" time="0.004"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

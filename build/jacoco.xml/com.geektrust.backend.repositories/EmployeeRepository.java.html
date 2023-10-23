@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EmployeeRepository.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">backend</a> &gt; <a href="index.source.html" class="el_package">com.geektrust.backend.repositories</a> &gt; <span class="el_source">EmployeeRepository.java</span></div><h1>EmployeeRepository.java</h1><pre class="source lang-java linenums">package com.geektrust.backend.repositories;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import com.geektrust.backend.entities.Employee;
+
+public class EmployeeRepository {
+    
+    private Map&lt;String, Employee&gt; emailIdEmployeeMap;
+
+<span class="nc" id="L12">    public EmployeeRepository() {</span>
+<span class="nc" id="L13">        emailIdEmployeeMap = new HashMap&lt;String, Employee&gt;();</span>
+<span class="nc" id="L14">    }</span>
+
+    public void saveEmployeeDetails(String emailId, 
+                String name, boolean registrationState) {
+        
+<span class="nc" id="L19">        Employee newEmployee = new Employee(emailId, name, registrationState);</span>
+
+<span class="nc" id="L21">        emailIdEmployeeMap.put(emailId, newEmployee);</span>
+        
+<span class="nc" id="L23">    }</span>
+
+    public Employee getEmployee(String emailId) {
+<span class="nc" id="L26">        return emailIdEmployeeMap.get(emailId);</span>
+    }
+
+    public void deleteEmployee(String emailId) {
+<span class="nc" id="L30">        emailIdEmployeeMap.remove(emailId);</span>
+<span class="nc" id="L31">    }</span>
+
+    public void setEmployeeAllotmentStatus(String emailId, boolean status) {
+        /*Employee updatedEmployee = getEmployee(emailId);
+        updatedEmployee.setAllotmentStatus(status); */
+<span class="nc" id="L36">		Employee updatedEmployee = new Employee(emailId, emailId.split(&quot;@&quot;)[0], status);</span>
+<span class="nc" id="L37">        emailIdEmployeeMap.put(emailId, updatedEmployee);</span>
+<span class="nc" id="L38">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

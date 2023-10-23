@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ApplicationConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">backend</a> &gt; <a href="index.source.html" class="el_package">com.geektrust.backend.appConfig</a> &gt; <span class="el_source">ApplicationConfig.java</span></div><h1>ApplicationConfig.java</h1><pre class="source lang-java linenums">package com.geektrust.backend.appConfig;
+
+import com.geektrust.backend.commands.AddCourseOfferingsCommand;
+import com.geektrust.backend.commands.AllotCommand;
+import com.geektrust.backend.commands.CancelRegistrationCommand;
+import com.geektrust.backend.commands.CommandInvoker;
+import com.geektrust.backend.commands.RegisterCommand;
+import com.geektrust.backend.repositories.CourseOfferingRepository;
+import com.geektrust.backend.repositories.EmployeeRepository;
+import com.geektrust.backend.repositories.InstructorRepository;
+import com.geektrust.backend.repositories.RegistrationRepository;
+import com.geektrust.backend.services.AllotmentService;
+import com.geektrust.backend.services.CourseOfferingService;
+import com.geektrust.backend.services.RegistrationService;
+
+<span class="nc" id="L16">public class ApplicationConfig {</span>
+    
+<span class="nc" id="L18">    private final CourseOfferingRepository courseOfferingRepository = new CourseOfferingRepository();</span>
+<span class="nc" id="L19">    private final InstructorRepository instructorRepository = new InstructorRepository();</span>
+<span class="nc" id="L20">    private final RegistrationRepository registrationRepository = new RegistrationRepository();</span>
+<span class="nc" id="L21">    private final EmployeeRepository employeeRepository = new EmployeeRepository();</span>
+    
+<span class="nc" id="L23">    private final CourseOfferingService courseOfferingService = </span>
+                                            new CourseOfferingService(courseOfferingRepository, instructorRepository);
+
+<span class="nc" id="L26">    private final RegistrationService registrationService = </span>
+                                        new RegistrationService(courseOfferingRepository, registrationRepository, employeeRepository);
+
+<span class="nc" id="L29">    private final AllotmentService allotmentService =</span>
+                                    new AllotmentService(courseOfferingRepository, registrationRepository, employeeRepository);
+
+<span class="nc" id="L32">    private final AddCourseOfferingsCommand addCourseOfferingsCommand = new AddCourseOfferingsCommand(courseOfferingService);</span>
+<span class="nc" id="L33">    private final RegisterCommand registerCommand = new RegisterCommand(registrationService);</span>
+<span class="nc" id="L34">    private final CancelRegistrationCommand cancelRegistrationCommand = new CancelRegistrationCommand(registrationService);</span>
+<span class="nc" id="L35">    private final AllotCommand allotCommand = new AllotCommand(allotmentService);</span>
+
+<span class="nc" id="L37">    private final CommandInvoker commandInvoker = new CommandInvoker();</span>
+
+    public CommandInvoker getCommandInvoker() {
+<span class="nc" id="L40">        commandInvoker.register(&quot;ADD-COURSE-OFFERING&quot;, addCourseOfferingsCommand);</span>
+<span class="nc" id="L41">        commandInvoker.register(&quot;REGISTER&quot;, registerCommand);</span>
+<span class="nc" id="L42">        commandInvoker.register(&quot;CANCEL&quot;, cancelRegistrationCommand);</span>
+<span class="nc" id="L43">        commandInvoker.register(&quot;ALLOT&quot;, allotCommand);</span>
+        
+<span class="nc" id="L45">        return commandInvoker;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>
